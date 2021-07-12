@@ -96,7 +96,9 @@ M.login(user, password)
 # find me
 print "* reading config ..."
 
-M.select(maildir_me)
+res = M.select(maildir_me)
+if res[0]=='NO': raise RuntimeError('Could not select '+maildir_me)
+	
 typ, data = M.search(None, 'ALL')
 for num in data[0].split():
 	typ, data = M.fetch(num, "(BODY[HEADER.FIELDS (TO)])")
@@ -108,7 +110,9 @@ for num in data[0].split():
 #print 'Me: %s ' % (me)
 	
 # find friends
-M.select(maildir_friends)
+res = M.select(maildir_friends)
+if res[0]=='NO': raise RuntimeError('Could not select '+maildir_friends)
+	
 typ, data = M.search(None, 'ALL')
 for num in data[0].split():
 	typ, data = M.fetch(num, "(BODY[HEADER.FIELDS (FROM)])")
@@ -122,7 +126,8 @@ for num in data[0].split():
 #filter all mail
 
 print "* reading mail ..."
-M.select(maildir_work)
+res = M.select(maildir_work)
+if res[0]=='NO': raise RuntimeError('Could not select '+maildir_work)
 
 
 typ, data = M.search(None, 'ALL')
