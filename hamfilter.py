@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+#
+# Hamfilter
+# did you get your plus sign today
+# pike*2009
+
 import imaplib,rfc822,string
 
 # settings
